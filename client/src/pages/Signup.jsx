@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -25,25 +26,22 @@ export default function SignUp() {
         },
         body: JSON.stringify(formData),
       });
-      
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
 
       const data = await res.json();
       console.log(data);
 
       if (data.success === false) {
+        setLoading(false);
         setError(data.message);
         return;
       }
 
+      setLoading(false);
       setError(null);
       navigate('/sign-in');
     } catch (error) {
-      setError(error.message);
-    } finally {
       setLoading(false);
+      setError(error.message);
     }
   };
 
@@ -72,17 +70,17 @@ export default function SignUp() {
           id='password'
           onChange={handleChange}
         />
+
         <button
-          type='submit'
           disabled={loading}
           className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
         >
           {loading ? 'Loading...' : 'Sign Up'}
         </button>
       </form>
-      <div className="flex gap-2 mt-5">
+      <div className='flex gap-2 mt-5'>
         <p>Have an account?</p>
-        <Link to="/sign-in">
+        <Link to='/sign-in'>
           <span className='text-blue-700'>Sign in</span>
         </Link>
       </div>
