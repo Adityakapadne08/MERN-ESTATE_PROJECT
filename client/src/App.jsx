@@ -7,7 +7,7 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 
 import Home from "./pages/Home";
-import Header from "./components/Header";
+import Header from "./components/Header.jsx";
 import PrivateRoute from './components/PrivateRoute';
 export default function App() {
   //return <h1 className='text-red-500'>App</h1>
