@@ -1,10 +1,8 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import userReducer from './user/userSlice'; // Correctly import your user reducer
-import { persistReducer } from 'redux-persist'; // Ensure correct import
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import userReducer from './user/userSlice';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import persistStore from 'redux-persist/es/persistStore';
 
-// Correcting the rootReducer variable name
 const rootReducer = combineReducers({ user: userReducer });
 
 const persistConfig = {
@@ -13,7 +11,6 @@ const persistConfig = {
   version: 1,
 };
 
-// Creating the persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
@@ -24,5 +21,4 @@ export const store = configureStore({
     }),
 });
 
-// Create the persistor
 export const persistor = persistStore(store);
